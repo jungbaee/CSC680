@@ -1,0 +1,55 @@
+<?php include 'databaseAssignment4.php'; ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name ="viewport" content ="width=device-width, initial-scale=1.0">
+    <title>List of the posts</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="Post_pg1.php">Home</a>
+            <a class="navbar-brand" href="Post_pg2.php">Writing/Editing a Post</a>
+            <a class="navbar-brand" href="Post_pg3.php">List of the posts</a>
+        </nav>
+
+        <?php
+            $sql = "SELECT Post_Title, Post_Body FROM Post";
+            $result = mysqli_query($conn, $sql);
+            
+            if ($result->num_rows > 0) {
+                while($row = mysqli_fetch_array($result)) {
+                    echo "<div class='row-12'>".
+                            "<div class='border border-dark'>".
+                                $row['Post_Title'].
+                            "</div>".
+                        "</div>".
+                        "<div class='row-12 my-2'>".
+                            "<div class='border border-dark'>".
+                                $row['Post_Body'].
+                            "</div>".
+                        "</div>";
+                }
+              } else {
+                echo "<div class='row-12'>".
+                        "<div class='border border-dark'>".
+                            "N/A".
+                        "</div>".
+                    "</div>".
+                        "<div class='row-12 my-2'>".
+                            "<div class='border border-dark'>".
+                                "N/A".
+                            "</div>".
+                        "</div>";
+              }
+              $conn->close();
+        ?>
+    </div>
+
+</body>
+</html>
